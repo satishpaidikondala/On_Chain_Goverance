@@ -1,0 +1,22 @@
+FROM node:20-slim
+
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+# Compile contracts
+RUN npx hardhat compile
+
+# Expose Hardhat node port
+EXPOSE 8545
+
+# Make entrypoint executable
+RUN chmod +x scripts/start-node.sh
+
+# Start node and deploy contracts
+CMD ["sh", "scripts/start-node.sh"]

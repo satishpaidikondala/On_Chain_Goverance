@@ -1,0 +1,38 @@
+services:
+  hardhat-node:
+    build:
+      context: .
+      dockerfile: Dockerfile.hardhat
+    ports:
+      - "8545:8545"
+    networks:
+      - governance-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "-X", "POST", "--data", "{\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"id\":1}", "-H", "Content-Type: application/json", "http://localhost:8545"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_RPC_URL=http://localhost:8545
+    depends_on:
+      hardhat-node:
+        condition: service_healthy
+    networks:
+      - governance-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+networks:
+  governance-net:
+    driver: bridge
