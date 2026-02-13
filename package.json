@@ -1,0 +1,26 @@
+{
+  "name": "on_chain_goverance",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/satishpaidikondala/On_Chain_Goverance.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/satishpaidikondala/On_Chain_Goverance/issues"
+  },
+  "homepage": "https://github.com/satishpaidikondala/On_Chain_Goverance#readme",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^6.1.0",
+    "@openzeppelin/contracts": "^5.4.0",
+    "dotenv": "^17.3.1",
+    "hardhat": "^2.28.6"
+  }
+}
